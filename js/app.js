@@ -150,6 +150,7 @@ function inciarApp() {
             if(existeStorage(idMeal)) {
                 eliminarFavorito(idMeal);
                 btnFavorito.textContent = 'Guardar favorito'
+                mostrarToast('Eliminado correctamente');
                 return;
             }
 
@@ -159,6 +160,7 @@ function inciarApp() {
                 img: strMealThumb
             })
             btnFavorito.textContent = 'Eliminar favorito'
+            mostrarToast('Agregado correctamente');
         }
         
         const btnCerrarModal = document.createElement('button');
@@ -190,6 +192,16 @@ function inciarApp() {
         const favoritos = JSON.parse(localStorage.getItem('favoritos')) ?? [];
         return favoritos.some(favorito => favorito.id === id);
     }   
+
+    function mostrarToast(mensaje) {
+        const toastDiv = document.querySelector('#toast');
+        const toastBody = document.querySelector('.toast-body');
+        const toast = new bootstrap.Toast(toastDiv);
+
+        toastBody.textContent = mensaje;
+
+        toast.show();
+    }
 
     function limpiaHTML (selector) {
         while(selector.firstChild) {
